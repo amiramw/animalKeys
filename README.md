@@ -1,4 +1,4 @@
-#Online KeyBoard to learn the Alefh Bet.
+#Online KeyBoard to learn the Alefh Bet..
 
 Currently working demo is located here: https://animalkeys.herokuapp.com/#/
 
