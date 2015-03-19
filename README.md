@@ -1,6 +1,6 @@
 #Online KeyBoard to learn the Alefh Bet..
 
-Currently working demo is located here: https://animalkeys.herokuapp.com/#/
+Currently working demo is located here: https://animalkey.herokuapp.com/#/
 
 This is a Volunteer project for kids to learn the Hebrew ABC and was part of SAP contribution to Beit Issie Shapiro institute
 http://en.beitissie.org.il/
