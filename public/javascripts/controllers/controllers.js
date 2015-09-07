@@ -1,11 +1,48 @@
-/**
- * Created by tal Waserman on 21/02/15.
- */
+function keyCodeToLetter(keyCode) {
+    var letters = ['Alef', 'Bet', 'Gimel', 'Dalet', 'Hey', 'Vav', 'Zain', 'Chet', 'Tet', 'Yud', 'Kaf1', 'Kaf',
+        'Lamed', 'Mem1', 'Mem', 'Nun1', 'Nun', 'Samech', 'Ayin', 'Pe1', 'Pe', 'Zadik1', 'Zadik', 'Kuf', 'Reish',
+        'Shin', 'Taf'].map(function (letter) {
+            return letter + ".png";
+        });
+    if (keyCode === 32) {
+        return "space";
+    }
+    var position = keyCode - 1488;
+    return letters[position];
+}
+
+function _keyboardEventsBinding($scope) {
+    return function(){
+        $(document).unbind('keydown').bind('keydown', function(evt) {
+            if( evt.which == 8 ) {
+                $scope.keyPressed("backSpace");
+                evt.preventDefault();
+            }
+        });
+        $(document).keypress(function (evt) {
+            var letter = keyCodeToLetter(evt.keyCode);
+            if (letter) {
+                $scope.keyPressed(letter);
+            }
+        });
+    }
+}
+
+mainApp.controller('homeCTR',['$scope', function($scope) {
+    $scope.$on('$viewContentLoaded', function () {
+        $(document).unbind('keydown');
+        $(document).unbind('keypress');
+    });
+
+}]);
+
 mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', function($scope, $http, sounds, util) {
     $scope.val = 0;
     $scope.numLetters = 5;
     var imageIndex = 0, wordEntered = [], div, imageLocation, imageLetters;
 
+
+    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
     $scope.keyPressed = function(letter){
 
         var imageList = util.getImageList(),
@@ -141,9 +178,10 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
             element = document.getElementsByClassName('completeWord')[0];
             element.className = "completeWord";
         }
-    } //keyPress
+    }; //keyPress
 }]);
 mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, sounds) {
+    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
     $scope.keyPressed = function(letter){
         var imageLocation, div;
         if(letter !== 'space' && letter !== 'backSpace')
@@ -160,12 +198,13 @@ mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, soun
             document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
             sounds.letter(letter.split('.')[0]);
         }
-    }//keyPressed()
+    }; //keyPressed()
 }]);
 mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope, sounds, util) {
     var imageList, div;
     $scope.val = 0;
 
+    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
     $scope.keyPressed = function(letter){
 
         imageList = util.getImageList();
@@ -189,7 +228,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
             div.style.height = "285px" ;
             document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
 
-            if(_compareIMageAndLetter())
+            if(_compareImageAndLetter())
             {
                 sounds.success();
                 $scope.val = parseInt($scope.val) +1;
@@ -204,7 +243,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
             }//else
         }//else
 
-        function _compareIMageAndLetter(){
+        function _compareImageAndLetter(){
             var tempArr = document.getElementsByClassName('animaleImage')[0].getElementsByTagName("img")[0].src.split('/'),
                 imageName = tempArr[tempArr.length-1],
                 letterFromImage = imageName.split('_')[1].split('.')[0],
@@ -212,7 +251,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
             return (letter === letterFromImage )
         }
 
-    }//keyPressed()
+    };//keyPressed()
 
 }]);
 

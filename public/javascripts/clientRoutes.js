@@ -10,7 +10,8 @@ mainApp.config(['$urlRouterProvider','$stateProvider',function($urlRouterProvide
 
         .state('home', {
             url:'/',
-            templateUrl : '/views/home.html'
+            templateUrl : '/views/home.html',
+            controller: 'homeCTR'
         })
 
         .state('completeTheWord', {
