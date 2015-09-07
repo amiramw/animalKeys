@@ -52,3 +52,11 @@ h1 {
     top: 158px;
     left: 156px;
 }
+
+.keyboard {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    float: right;
+    right: 20%;
+}
