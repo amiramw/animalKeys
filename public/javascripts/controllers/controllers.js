@@ -212,6 +212,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
         if(letter === 'space')
         {
             util.changeImage();
+            util.clearImage();
             sounds.swipe();
         }
         else if(letter !== 'backSpace'){

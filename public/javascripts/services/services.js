@@ -130,10 +130,13 @@ angular.module('mainApp').factory('util',['$http', function util($http){
             setTimeout(function(){
                 document.getElementsByClassName('enlargedLatter ')[0].style.background  = "";
             },2000)
+        },
+        clearImage : function() {
+            if(document.getElementsByClassName('enlargedLatter')[0].getElementsByTagName("img").length > 0)
+            {
+                document.getElementsByClassName('enlargedLatter')[0].getElementsByTagName("img")[0].remove();
+            }
         }
-
-
-
     }
 
 }]);
