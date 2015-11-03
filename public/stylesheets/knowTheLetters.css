@@ -82,6 +82,10 @@ body {
     cursor: pointer;
 }
 
+.line {
+    margin-left: 100px;
+    display: inline-block;
+}
 
 .line2{
     margin-left: 51px;
