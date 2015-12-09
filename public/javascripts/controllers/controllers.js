@@ -295,11 +295,15 @@ mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, soun
             div.src = imageLocation;
             div.style.width = "200px" ;
             div.style.height = "200px" ;
+            div.className = "twisterInDown";
             document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
+
             sounds.letter(letter.split('.')[0]);
         }
     }; //keyPressed()
 }]);
+
+
 mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope, sounds, util) {
     var imageList, div;
     $scope.val = 0;
