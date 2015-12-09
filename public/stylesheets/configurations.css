@@ -13,18 +13,21 @@
     height: 80%;
 }
 
-.middlePart{
+.middlePart {
     position: relative;
     top: 58px;
-    left: 22px;
+    left: 20%;
+    width: 600px;
+    height: 300px;
+    background-color: antiquewhite;
 }
 
-.header{
+.header {
     font: Arial, 'Helvetica Neue', Helvetica, sans-serif;
     background: bisque;
     height: 70px;
     padding-top: 10px;
-    width:100%;
+    width: 100%;
     border-bottom: 5px solid yellow;
 }
 
@@ -34,14 +37,14 @@
     height: 150px;
 }
 
-.backgroundTiles{
+.backgroundTiles {
     position: absolute;
     top: 13%;
     display: inline-block;
-    right:10%;
+    right: 10%;
 }
 
-.tile {
+.tile, .description {
     position: relative;
     display: inline-block;
 }

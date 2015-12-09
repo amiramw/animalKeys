@@ -32,12 +32,16 @@ function _onLoading($scope) {
     }
 }
 
+function _setBackground(bg) {
+    $("body").css("background-image", "url(" + bg + ")");
+}
+
 mainApp.controller('homeCTR',['$scope', function($scope) {
     $scope.$on('$viewContentLoaded', function () {
         $(document).unbind('keydown');
         $(document).unbind('keypress');
         if ($("body").css("background-image") === "none") {
-            $("body").css("background-image", ("url(" + LIGHT_BG + ")"));
+            _setBackground(LIGHT_BG);
         }
     });
 
@@ -48,11 +52,11 @@ mainApp.controller('configurationsCTR',['$scope', function($scope) {
     });
 
     $scope.darkSelected = function () {
-        $("body").css("background-image", ("url(" + DARK_BG + ")"));
+        _setBackground(DARK_BG);
     };
 
     $scope.lightSelected = function () {
-        $("body").css("background-image", ("url(" + LIGHT_BG + ")"));
+        _setBackground(LIGHT_BG);
     }
 
 }]);
