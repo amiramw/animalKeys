@@ -318,7 +318,7 @@ textarea{
     cursor: pointer;
     left: 80px;
     /*TODO currently the visiblity is hidden. Remove this css property when recording of the images are available.*/
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 /* ANIMATIONS
 ============================================================================= */
