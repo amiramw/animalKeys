@@ -1,4 +1,8 @@
-function keyCodeToLetter(keyCode) {
+var LIGHT_BG = "../images/giftly2.png",
+    DARK_BG = "../images/giftly2reverse.png";
+
+
+function _keyCodeToLetter(keyCode) {
     var letters = ['Alef', 'Bet', 'Gimel', 'Dalet', 'Hey', 'Vav', 'Zain', 'Chet', 'Tet', 'Yud', 'Kaf1', 'Kaf',
         'Lamed', 'Mem1', 'Mem', 'Nun1', 'Nun', 'Samech', 'Ayin', 'Pe1', 'Pe', 'Zadik1', 'Zadik', 'Kuf', 'Reish',
         'Shin', 'Taf'].map(function (letter) {
@@ -11,7 +15,7 @@ function keyCodeToLetter(keyCode) {
     return letters[position];
 }
 
-function _keyboardEventsBinding($scope) {
+function _onLoading($scope) {
     return function(){
         $(document).unbind('keydown').bind('keydown', function(evt) {
             if( evt.which == 8 ) {
@@ -20,7 +24,7 @@ function _keyboardEventsBinding($scope) {
             }
         });
         $(document).keypress(function (evt) {
-            var letter = keyCodeToLetter(evt.keyCode);
+            var letter = _keyCodeToLetter(evt.keyCode);
             if (letter) {
                 $scope.keyPressed(letter);
             }
@@ -32,7 +36,24 @@ mainApp.controller('homeCTR',['$scope', function($scope) {
     $scope.$on('$viewContentLoaded', function () {
         $(document).unbind('keydown');
         $(document).unbind('keypress');
+        if ($("body").css("background-image") === "none") {
+            $("body").css("background-image", ("url(" + LIGHT_BG + ")"));
+        }
     });
+
+}]);
+
+mainApp.controller('configurationsCTR',['$scope', function($scope) {
+    $scope.$on('$viewContentLoaded', function () {
+    });
+
+    $scope.darkSelected = function () {
+        $("body").css("background-image", ("url(" + DARK_BG + ")"));
+    };
+
+    $scope.lightSelected = function () {
+        $("body").css("background-image", ("url(" + LIGHT_BG + ")"));
+    }
 
 }]);
 
@@ -42,7 +63,7 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
     var imageIndex = 0, wordEntered = [], div, imageLocation, imageLetters;
 
 
-    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
+    $scope.$on('$viewContentLoaded', _onLoading($scope));
     $scope.keyPressed = function(letter){
 
         var imageList = util.getImageList(),
@@ -181,7 +202,7 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
     }; //keyPress
 }]);
 mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, sounds) {
-    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
+    $scope.$on('$viewContentLoaded', _onLoading($scope));
     $scope.keyPressed = function(letter){
         var imageLocation, div;
         if(letter !== 'space' && letter !== 'backSpace')
@@ -204,7 +225,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
     var imageList, div;
     $scope.val = 0;
 
-    $scope.$on('$viewContentLoaded', _keyboardEventsBinding($scope));
+    $scope.$on('$viewContentLoaded', _onLoading($scope));
     $scope.keyPressed = function(letter){
 
         imageList = util.getImageList();
@@ -237,9 +258,10 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
                 //fadeIn fadeOut the score
                 util.fadeInOut();
                 //fadeIn fadeOut the letter
-                util.fadeInOutLetter();
+                util.fadeInLetter("green");
             }
             else {
+                util.fadeInLetter("red");
                 sounds.wrong();
             }//else
         }//else

@@ -101,11 +101,6 @@ body {
     display: inline-block;
 }
 
-
-body{
-    background-image: url("../images/giftly.png");
-}
-
 textarea{
     text-align: right;
     font-size: 250% !important;

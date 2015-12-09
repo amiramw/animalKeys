@@ -1,34 +1,40 @@
 /**
  * Created by talwa_000 on 21/02/15.
  */
-var mainApp = angular.module('mainApp', ['ui.router','ngTouch']);
+var mainApp = angular.module('mainApp', ['ui.router', 'ngTouch']);
 
 // configure our routes
-mainApp.config(['$urlRouterProvider','$stateProvider',function($urlRouterProvider, $stateProvider) {
+mainApp.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
 
         .state('home', {
-            url:'/',
-            templateUrl : '/views/home.html',
+            url: '/',
+            templateUrl: '/views/home.html',
             controller: 'homeCTR'
         })
 
+        .state('configurations', {
+            url: '/configurations',
+            templateUrl: '/views/configurations.html',
+            controller: 'configurationsCTR'
+        })
+
         .state('completeTheWord', {
-            url:'/completeTheWord',
-            templateUrl : '/views/completeTheWord.html',
+            url: '/completeTheWord',
+            templateUrl: '/views/completeTheWord.html',
             controller: 'completeTheWordCTR'
         })
 
         .state('firstLetter', {
-            url:'/firstLetter',
-            templateUrl : '/views/firstLetter.html',
+            url: '/firstLetter',
+            templateUrl: '/views/firstLetter.html',
             controller: 'firstLetterCTR'
         })
 
         .state('knowTheLetters', {
-            url:'/knowTheLetters',
-            templateUrl : '/views/knowTheLetters.html',
+            url: '/knowTheLetters',
+            templateUrl: '/views/knowTheLetters.html',
             controller: 'knowTheLettersCTR'
         })
 

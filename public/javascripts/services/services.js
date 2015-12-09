@@ -93,43 +93,37 @@ angular.module('mainApp').factory('util',['$http', function util($http){
             document.getElementsByClassName('scoreNumber')[0].style.color = "green";
             setTimeout(function(){
                 document.getElementsByClassName('scoreNumber')[0].style.color = "black";
-            },500)
+            },500);
             setTimeout(function(){
                 document.getElementsByClassName('scoreNumber')[0].style.color = "green";
-            },1000)
+            },1000);
             setTimeout(function(){
                 document.getElementsByClassName('scoreNumber')[0].style.color = "black";
-            },1500)
+            },1500);
         },
         fadeInOutCompleteWord: function(){
             document.getElementsByClassName('completeWord ')[0].style.background  = "green";
             setTimeout(function(){
                 document.getElementsByClassName('completeWord ')[0].style.background  = "white";
-            },500)
+            },500);
             setTimeout(function(){
                 document.getElementsByClassName('completeWord ')[0].style.background  = "green";
-            },1000)
+            },1000);
             setTimeout(function(){
                 document.getElementsByClassName('completeWord ')[0].style.background  = "white";
-            },1500)
+            },1500);
             setTimeout(function(){
                 document.getElementsByClassName('completeWord ')[0].style.background  = "";
-            },2000)
+            },2000);
         },
-        fadeInOutLetter: function(){
-            document.getElementsByClassName('enlargedLatter ')[0].style.background  = "green";
+        fadeInLetter: function(background){
+            document.getElementsByClassName('enlargedLatter ')[0].style.background  = background;
             setTimeout(function(){
                 document.getElementsByClassName('enlargedLatter ')[0].style.background  = "transparent";
-            },500)
+            },500);
             setTimeout(function(){
-                document.getElementsByClassName('enlargedLatter ')[0].style.background  = "green";
-            },1000)
-            setTimeout(function(){
-                document.getElementsByClassName('enlargedLatter ')[0].style.background  = "transparent";
-            },1500)
-            setTimeout(function(){
-                document.getElementsByClassName('enlargedLatter ')[0].style.background  = "";
-            },2000)
+                document.getElementsByClassName('enlargedLatter ')[0].style.background  = background;
+            },1000);
         },
         clearImage : function() {
             if(document.getElementsByClassName('enlargedLatter')[0].getElementsByTagName("img").length > 0)
