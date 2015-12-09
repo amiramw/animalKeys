@@ -239,6 +239,18 @@ textarea{
     position: relative;
     top: 58px;
     left: 22px;
+    z-index: 10;
+}
+
+.medalPopup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid black;
+    border-radius: 8px;
+    z-index: 100;
+    display: none;
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -247,6 +259,7 @@ textarea{
         position: relative;
         margin: 0 auto;
         top: 12px;
+        z-index: 10;
     }
     #container {
         margin: 100px auto;
@@ -261,6 +274,7 @@ textarea{
         position: relative;
         left: 22px;
         top: 12px;
+        z-index: 10;
     }
     #container {
         position: absolute;
@@ -276,6 +290,7 @@ textarea{
         position: relative;
         top: 58px;
         left: 22px;
+        z-index: 10;
     }
     #container {
         width: 1023px;

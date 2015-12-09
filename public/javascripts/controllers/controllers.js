@@ -238,6 +238,12 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                         $scope.val = parseInt($scope.val) +1;
                         $scope.success = true;
 
+                        if ($scope.val % 5 === 0) {
+                            var medalElement = document.getElementsByClassName("medalPopup")[0];
+                            $(medalElement).fadeIn(2000);
+                            $(medalElement).fadeOut(1000);
+                        }
+
                         //fadeIn fadeOut the score
                         util.fadeInOut();
                         util.fadeInOutCompleteWord();
