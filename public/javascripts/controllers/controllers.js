@@ -290,7 +290,7 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
         }
     }; //keyPress
 }]);
-mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, sounds) {
+mainApp.controller('knowTheLettersCTR',['$scope','sounds', 'util', function($scope, sounds, util) {
     $scope.$on('$viewContentLoaded', _onLoading($scope));
     $scope.keyPressed = function(letter){
         var imageLocation, div;
@@ -308,6 +308,7 @@ mainApp.controller('knowTheLettersCTR',['$scope','sounds', function($scope, soun
             div.className = "twisterInDown";
             document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
 
+            util.fadeInLetter("green");
             sounds.letter(letter.split('.')[0]);
         }
     }; //keyPressed()

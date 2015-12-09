@@ -12,10 +12,9 @@ body {
 }
 
 #write {
-    margin: 0 0 5px;
     padding: 5px;
     width: 94%;
-    margin-left: 27px;
+    margin: 0 0 5px 27px;
     height: 200px;
     font: 1em/1.5 Verdana, Sans-Serif;
     background: #fff;
@@ -37,8 +36,6 @@ body {
     height: 64px;
     line-height: 57px;
     text-align: center;
-    background: #fff;
-    border: 1px solid #f9f9f9;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     background: yellow;
@@ -52,7 +49,6 @@ body {
     height: 64px;
     line-height: 57px;
     text-align: center;
-    background: #fff;
     border: 1px solid #f9f9f9;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -105,6 +101,11 @@ body {
 .enlargedLatter img{
     margin: 0 auto;
     display: inherit;
+}
+
+.enlargedLatter{
+    display: inline-block;
+    margin-left: 400px;
 }
 
 .twisterInDown {
@@ -166,14 +167,14 @@ body {
     height: inherit;
     margin-right: 16px;
     top: 7px;
-    right: 0px;
+    right: 0;
     position: absolute;
 }
 
 .image{
     width: 174px;
     position: absolute;
-    top: 0px;
+    top: 0;
 }
 .smallBox{
     display: inline-block;
@@ -205,7 +206,7 @@ body {
 @media (min-width: 1200px) {
     .middlePart{
         position: relative;
-        margin: 0px auto;
+        margin: 0 auto;
         width: 1025px;
         top: 12px;
     }
@@ -220,7 +221,6 @@ body {
 @media (max-width: 1200px) and ( min-width: 813px) {
     .middlePart{
         position: relative;
-        top: 58px;
         left: 22px;
         top: 12px;
     }
