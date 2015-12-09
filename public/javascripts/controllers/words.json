@@ -44,10 +44,6 @@
         "letters": ["Dalet.png", "Bet.png", "Vav.png", "Reish.png", "Hey.png"]
     },
     {
-        "image": "bee_Dalet.jpg",
-        "letters": ["Dalet.png", "Bet.png", "Vav.png", "Reish.png", "Hey.png"]
-    },
-    {
         "image": "boat_Samech.jpg",
         "letters": ["Samech.png", "Yud.png", "Reish.png", "Hey.png"]
     },
@@ -126,10 +122,6 @@
     {
         "image": "fox_Shin.jpg",
         "letters": ["Shin.png", "Vav.png", "Ayin.png", "Lamed.png"]
-    },
-    {
-        "image": "fox_Zain.jpg",
-        "letters": ["Shin.png", "Ayin.png", "Lamed.png"]
     },
     {
         "image": "frog_Zadik.jpg",
@@ -240,7 +232,7 @@
         "letters": ["Mem.png", "Dalet.png", "Vav.png", "Zain.png", "Hey.png"]
     },
     {
-        "image": "mish-mish_Mem.jpg",
+        "image": "mishmish_Mem.jpg",
         "letters": ["Mem.png", "Yud.png", "Shin.png", "Mem.png", "Shin.png"]
     },
     {

@@ -68,6 +68,20 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
     $scope.success = false;
     var imageIndex = 0, wordEntered = [], div, imageLocation, imageLetters;
 
+    /**
+     * When clicking the speaker the current image is evaluated to the sound according to the NAME of the source!
+     * Meaning images name should be with the convention <NameOfItem>_<FirstLetterOfItem>.png and the NameOfLetter should
+     * Not include special characters. e.g. afarsek_Alef.png .
+     */
+    //TODO Enable when recordings are available
+    //$(document.getElementById('speaker')).click(function(){
+    //    var sWord, sImageName, aPathOfImage = $(document.getElementById('completeWordImage'))[0].src.split('/');
+    //    sImageName = aPathOfImage[aPathOfImage.length-1];
+    //    sWord = sImageName.substring(0,sImageName.indexOf('_'));
+    //    sounds.word(sWord);
+    //});
+
+
     var _addPlaceHolders = function(containerElement, remainingLetters) {
         for (var i = 0; i < remainingLetters; i++) {
             //Update word on screen

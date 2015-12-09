@@ -308,6 +308,18 @@ textarea{
     display: inline-block;
     border-radius: 5px;
 }
+
+.speaker {
+    width: 70px;
+    height: 60px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    left: 80px;
+    /*TODO currently the visiblity is hidden. Remove this css property when recording of the images are available.*/
+    /*visibility: hidden;*/
+}
 /* ANIMATIONS
 ============================================================================= */
 [ui-view].ng-enter 	{
