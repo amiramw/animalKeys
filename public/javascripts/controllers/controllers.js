@@ -59,11 +59,67 @@ mainApp.controller('configurationsCTR',['$scope', function($scope) {
 
 mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', function($scope, $http, sounds, util) {
     $scope.val = 0;
-    $scope.numLetters = 5;
+    var numOfLetters = 5;
+    $scope.numLetters = numOfLetters;
+    $scope.success = false;
     var imageIndex = 0, wordEntered = [], div, imageLocation, imageLetters;
 
+    var _addPlaceHolders = function(containerElement, remainingLetters) {
+        for (var i = 0; i < remainingLetters; i++) {
+            //Update word on screen
+            var div = document.createElement("img");
+            div.style.width = "60px" ;
+            div.style.height = "60px" ;
+            div.style.float = "right";
+            containerElement.appendChild(div);
+        }
+
+
+        containerElement.className = containerElement.className + " completeWordContainer";
+    };
+
+    var _clearPlaceHoldersAndInsertLetter = function(containerElement, newLetter){
+
+        var imageElements = containerElement.getElementsByTagName("img");
+        for (var i = 0; i < imageElements.length; i++) {
+            if (!imageElements[i].src){
+                containerElement.insertBefore(newLetter, imageElements[i]);
+                imageElements = containerElement.getElementsByTagName("img");
+                containerElement.removeChild(imageElements[imageElements.length - 1]);
+                break;
+            }
+        }
+
+    };
+
+    var _clearLetterAndInsertPlaceHolder = function(containerElement){
+
+        var imageElements = containerElement.getElementsByTagName("img");
+        var indexToRemove = -1;
+        for (var i = 0; i < imageElements.length; i++) {
+            if (!imageElements[i].src){
+                indexToRemove  = i;
+                break;
+            }
+        }
+        if (indexToRemove == -1) {
+            indexToRemove = imageElements.length;
+        }
+
+        if (indexToRemove > 0) {
+            containerElement.removeChild(imageElements[indexToRemove -1]);
+            var div = document.createElement("img");
+            div.style.width = "60px" ;
+            div.style.height = "60px" ;
+            div.style.float = "right";
+            containerElement.appendChild(div);
+        }
+    };
 
     $scope.$on('$viewContentLoaded', _onLoading($scope));
+    $scope.$on('$viewContentLoaded', function($scope){
+        _addPlaceHolders(document.getElementsByClassName('completeWord')[0], numOfLetters);
+    });
     $scope.keyPressed = function(letter){
 
         var imageList = util.getImageList(),
@@ -71,11 +127,14 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
 
         switch(letter) {
             case "space":
+                $scope.success = false;
                 util.changeImage();
                 sounds.swipe();
 
-                if(document.getElementsByClassName('completeWord')[0].getElementsByTagName("img").length > 0)
-                    document.getElementsByClassName('completeWord')[0].innerHTML = "";
+                var element = document.getElementsByClassName('completeWord')[0];
+
+                if(element.getElementsByTagName("img").length > 0)
+                    element.innerHTML = "";
 
                 imageIndex++;
                 wordEntered = [];
@@ -93,12 +152,17 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                     }
                 }
 
+                _addPlaceHolders(element, $scope.numLetters);
+
             break;
 
             case "backSpace":
+                if ($scope.success) {
+                    return;
+                }
                 if(document.getElementsByClassName('completeWord')[0].getElementsByTagName("img").length > 0)
                 {
-                    document.getElementsByClassName('completeWord')[0].getElementsByTagName("img")[document.getElementsByClassName('completeWord')[0].getElementsByTagName("img").length-1].remove();
+                    _clearLetterAndInsertPlaceHolder(document.getElementsByClassName('completeWord')[0]);
                     wordEntered.pop();
                 }
                 if(document.getElementsByClassName('completeWord')[0].getElementsByTagName("img").length === 0){
@@ -128,12 +192,16 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
 
             default:
                 //Letter pressed
+                if ($scope.success) {
+                    return;
+                }
                 sounds.letter(letter.split('.')[0]);
                 var element = document.getElementsByClassName('completeWord')[0];
                 element.className = element.className + " completeWordContainer ";
 
                 var tempObject;
 
+                var containerElement = document.getElementsByClassName('completeWord')[0];
                 //Update word on screen
                 imageLocation =  "images/letters/"+letter;
                 div = document.createElement("img");
@@ -141,29 +209,40 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                 div.style.width = "60px" ;
                 div.style.height = "60px" ;
                 div.style.float = "right";
-                document.getElementsByClassName('completeWord')[0].appendChild(div);
 
-                wordEntered.push(letter);
+                _clearPlaceHoldersAndInsertLetter(containerElement, div);
 
-                //Get image name;
-                var image = document.getElementsByClassName('animaleImage')[0].getElementsByTagName("img")[0].src.split('/');
-                image = image[image.length-1];
+                //containerElement.appendChild(div);
 
-                tempObject = {
-                    "image": image,
-                    "letters": wordEntered
-                };
+                _addPlaceHolders(containerElement, ($scope.numLetters - containerElement.getElementsByTagName("img").length));
 
-                if(_checkWord(tempObject))
-                {
-                    sounds.success();
-                    $scope.val = parseInt($scope.val) +1;
+                if (wordEntered.length < $scope.numLetters) {
+                    wordEntered.push(letter);
 
-                    //fadeIn fadeOut the score
-                    util.fadeInOut();
-                    util.fadeInOutCompleteWord();
+                    //Get image name;
+                    var image = document.getElementsByClassName('animaleImage')[0].getElementsByTagName("img")[0].src.split('/');
+                    image = image[image.length-1];
+
+                    tempObject = {
+                        "image": image,
+                        "letters": wordEntered
+                    };
+
+                    if(_checkWord(tempObject))
+                    {
+                        sounds.success();
+                        $scope.val = parseInt($scope.val) +1;
+                        $scope.success = true;
+
+                        //fadeIn fadeOut the score
+                        util.fadeInOut();
+                        util.fadeInOutCompleteWord();
+                    }
                 }
+
+
         }//switch
+
 
         function _checkWord(array) {
             var bool, element;
