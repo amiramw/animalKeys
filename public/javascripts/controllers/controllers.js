@@ -118,12 +118,12 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
         for (var i = 0; i < remainingLetters; i++) {
             //Update word on screen
             var div = document.createElement("img");
-            div.style.width = "60px" ;
-            div.style.height = "60px" ;
+            div.style.width = "100px" ;
+            div.style.height = "100px" ;
             div.style.float = "right";
+            div.style.border = "1px solid black";
             containerElement.appendChild(div);
         }
-
 
         containerElement.className = containerElement.className + " completeWordContainer";
     };
@@ -159,9 +159,10 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
         if (indexToRemove > 0) {
             containerElement.removeChild(imageElements[indexToRemove -1]);
             var div = document.createElement("img");
-            div.style.width = "60px" ;
-            div.style.height = "60px" ;
+            div.style.width = "100px" ;
+            div.style.height = "100px" ;
             div.style.float = "right";
+            div.style.border = "1px solid black";
             containerElement.appendChild(div);
         }
     };
@@ -214,6 +215,9 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                 {
                     _clearLetterAndInsertPlaceHolder(document.getElementsByClassName('completeWord')[0]);
                     wordEntered.pop();
+                    if (wordEntered.length === 0) {
+                        $(document.getElementsByClassName('completeWord')[0]).removeClass("green red");
+                    }
                 }
                 if(document.getElementsByClassName('completeWord')[0].getElementsByTagName("img").length === 0){
                     _cleanContainer();
@@ -234,6 +238,7 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                         sounds.success();
                         $('.completeWord').fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
                         $scope.val = parseInt($scope.val) +1;
+                        $scope.$apply();
                         util.fadeInOut();
                     }
                 }
@@ -256,9 +261,10 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                 imageLocation =  "images/letters/"+letter;
                 div = document.createElement("img");
                 div.src = imageLocation;
-                div.style.width = "60px" ;
-                div.style.height = "60px" ;
+                div.style.width = "100px" ;
+                div.style.height = "100px" ;
                 div.style.float = "right";
+                div.style.border = "1px solid black";
 
                 _clearPlaceHoldersAndInsertLetter(containerElement, div);
 
@@ -283,6 +289,7 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                         sounds.success();
                         $scope.val = parseInt($scope.val) +1;
                         $scope.success = true;
+                        $scope.$apply();
 
                         if ($scope.val % 5 === 0) {
                             var medalElement = document.getElementsByClassName("medalPopup")[0];
@@ -307,6 +314,9 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
 
         function _checkWord(array) {
             var bool, element;
+            if (array.letters.length === 0) {
+                return false;
+            }
             for (var i = 0;i<allWords.length  ;i++) {
                 if(allWords[i].image === array.image)
                 {
@@ -359,7 +369,7 @@ mainApp.controller('knowTheLettersCTR',['$scope','sounds', 'util', function($sco
             div.className = "twisterInDown";
             document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
 
-            util.fadeInLetter("green");
+            util.fadeInLetter("lightgreen");
             sounds.letter(letter.split('.')[0]);
         }
     }; //keyPressed()
@@ -371,6 +381,12 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
     $scope.val = 0;
 
     $scope.$on('$viewContentLoaded', _onLoading($scope));
+
+    //Show the game only after reading the instruction of the game
+    setTimeout(function(){
+        $(".middlePart")[0].style.visibility = "visible";
+    },2000);
+
     $scope.keyPressed = function(letter){
 
         imageList = util.getImageList();
@@ -380,10 +396,12 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
             clearTimeout(autoSwitchSetTimeout);
             util.changeImage();
             util.clearImage();
+            //Add question mark
+            _addQuestionMark();
             sounds.swipe();
         }
         else if(letter !== 'backSpace'){
-            sounds.letter(letter.split('.')[0]);
+            //sounds.letter(letter.split('.')[0]);
             /*sounds.letter("./voice/"+letter.split('.')[0]+".mp3");*/
 
             if(document.getElementsByClassName('enlargedLatter')[0].getElementsByTagName("img").length > 0)
@@ -404,7 +422,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
                 //fadeIn fadeOut the score
                 util.fadeInOut();
                 //fadeIn fadeOut the letter
-                util.fadeInLetter("green");
+                util.fadeInLetter("lightgreen");
                 if (autoSwitchStages) {
                     autoSwitchSetTimeout = setTimeout(function () {
                         $scope.keyPressed("space");
@@ -414,9 +432,25 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
             }
             else {
                 util.fadeInLetter("red");
-                sounds.wrong();
+                sounds.tryAgain();
+                setTimeout(function(){
+                    _addQuestionMark();
+                }, 2000);
+
             }//else
         }//else
+
+        function _addQuestionMark() {
+            document.getElementsByClassName('enlargedLatter')[0].style.background = "transparent";
+
+            var questionMarkImageLocation =  "images/question.png";
+            div = document.createElement("img");
+            div.src = questionMarkImageLocation;
+            div.style.width = "448px";
+            div.style.height = "285px";
+            $(document.getElementsByClassName('enlargedLatter')[0]).empty()
+            document.getElementsByClassName('enlargedLatter')[0].appendChild(div);
+        }
 
         function _compareImageAndLetter(){
             var tempArr = document.getElementsByClassName('animaleImage')[0].getElementsByTagName("img")[0].src.split('/'),

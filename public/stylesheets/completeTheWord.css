@@ -12,7 +12,7 @@ body {
 .completeWord{
     float: right;
     position: absolute;
-    top: 105px;
+    top: 40px;
     right: 6%;
     padding: 10px;
 }
@@ -33,7 +33,7 @@ body {
 
 .completeWordContainer{
     border-radius: 11px;
-    border: 1px solid black;
+    border: 5px solid black;
     background-color: white;
 }
 
@@ -127,17 +127,21 @@ body {
 }
 
 .line {
-    margin-left: 100px;
+    margin-left: 150px;
     display: inline-block;
 }
 
 .line2{
-    margin-left: 51px;
+    margin-left: 20px;
     display: inline-block;
 }
 .line3{
-    margin-left: 102px;
+    margin-left: 90px;
     display: inline-block;
+}
+
+.lastitem {
+    margin-right: 187px !important
 }
 
 textarea{
@@ -154,6 +158,9 @@ textarea{
 .animaleImage{
     margin-bottom: 11px;
     display: inline-block;
+    position: relative;
+    left: 80px;
+    top: 40px;
 }
 
 .animaleImage img{

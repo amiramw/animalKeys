@@ -6,6 +6,7 @@ angular.module('mainApp').factory('sounds', ['$state', function ($state) {
     var success_snd = new Audio("./sounds/success.wav"),
         wrong_snd = new Audio("./sounds/wrong.wav"),
         swipe_snd = new Audio("./sounds/swipe.mp3"),
+        tryAgain_snd = new Audio("./sounds/tryAgain.wav"),
         //TODO need to make recordings of all these words. The first one is just for test that there is a sound.
         words_snd = {
             afarsek: new Audio('./voice/words/Alef.mp3')
@@ -165,6 +166,9 @@ angular.module('mainApp').factory('sounds', ['$state', function ($state) {
         },
         word: function (word) {
             words_snd[word].play();
+        },
+        tryAgain: function() {
+            tryAgain_snd.play();
         }
     };
 }]);
@@ -216,12 +220,12 @@ angular.module('mainApp').factory('util', ['$http', function util($http) {
             }, 1500);
         },
         fadeInOutCompleteWord: function () {
-            document.getElementsByClassName('completeWord ')[0].style.background = "green";
+            document.getElementsByClassName('completeWord ')[0].style.background = "lightgreen";
             setTimeout(function () {
                 document.getElementsByClassName('completeWord ')[0].style.background = "white";
             }, 500);
             setTimeout(function () {
-                document.getElementsByClassName('completeWord ')[0].style.background = "green";
+                document.getElementsByClassName('completeWord ')[0].style.background = "lightgreen";
             }, 1000);
             setTimeout(function () {
                 document.getElementsByClassName('completeWord ')[0].style.background = "white";

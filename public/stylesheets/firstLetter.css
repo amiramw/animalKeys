@@ -64,9 +64,8 @@ body {
 .capslock, .tab, .left-shift {
     clear: left;
 }
-.lastitem {
-    margin-right: 0;
-}
+
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -88,17 +87,21 @@ body {
 }
 
 .line {
-    margin-left: 100px;
+    margin-left: 150px;
     display: inline-block;
 }
 
 .line2{
-    margin-left: 51px;
+    margin-left: 20px;
     display: inline-block;
 }
 .line3{
-    margin-left: 102px;
+    margin-left: 90px;
     display: inline-block;
+}
+
+.lastitem {
+    margin-right: 187px !important
 }
 
 textarea{
@@ -190,6 +193,7 @@ textarea{
     position: relative;
     top: 58px;
     left: 22px;
+    visibility: hidden;
 }
 
 /* Large devices (large desktops, 1200px and up) */
@@ -199,6 +203,7 @@ textarea{
         margin: 0px auto;
         width: 1025px;
         top: 12px;
+        visibility: hidden;
     }
     #container {
         margin: 100px auto;
@@ -213,6 +218,7 @@ textarea{
         top: 58px;
         left: 22px;
         top: 12px;
+        visibility: hidden;
     }
     #container {
         margin: 100px auto;
@@ -229,6 +235,7 @@ textarea{
         position: relative;
         top: 58px;
         left: 22px;
+        visibility: hidden;
     }
     #container {
         margin: 100px auto;

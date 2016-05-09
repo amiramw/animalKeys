@@ -79,17 +79,21 @@ body {
 }
 
 .line {
-    margin-left: 100px;
+    margin-left: 150px;
     display: inline-block;
 }
 
 .line2{
-    margin-left: 51px;
+    margin-left: 20px;
     display: inline-block;
 }
 .line3{
-    margin-left: 102px;
+    margin-left: 90px;
     display: inline-block;
+}
+
+.lastitem {
+    margin-right: 187px !important
 }
 
 .icons.icons{
