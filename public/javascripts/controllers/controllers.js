@@ -1,5 +1,12 @@
 var LIGHT_BG = "../images/giftly2.png",
-    DARK_BG = "../images/giftly2reverse.png";
+    DARK_BG = "../images/giftly2reverse.png",
+	/**
+     * indicates whether the switch between stages is done automatically or by clicking a button
+     * @type {boolean}
+     */
+    autoSwitchStages = false,
+    autoSwitchSetTimeout;
+
 
 
 function _keyCodeToLetter(keyCode) {
@@ -36,6 +43,18 @@ function _setBackground(bg) {
     $("body").css("background-image", "url(" + bg + ")");
 }
 
+function _setManualSwitch() {
+    autoSwitchStages = false;
+    $("#manualMove").addClass("stateSelected");
+    $("#autoMove").removeClass("stateSelected")
+}
+
+function _setAutoSwitch() {
+    autoSwitchStages = true;
+    $("#autoMove").addClass("stateSelected");
+    $("#manualMove").removeClass("stateSelected")
+}
+
 mainApp.controller('homeCTR',['$scope', function($scope) {
     $scope.$on('$viewContentLoaded', function () {
         $(document).unbind('keydown');
@@ -49,6 +68,11 @@ mainApp.controller('homeCTR',['$scope', function($scope) {
 
 mainApp.controller('configurationsCTR',['$scope', function($scope) {
     $scope.$on('$viewContentLoaded', function () {
+        if (autoSwitchStages) {
+            _setAutoSwitch();
+        } else {
+            _setManualSwitch();
+        }
     });
 
     $scope.darkSelected = function () {
@@ -57,7 +81,15 @@ mainApp.controller('configurationsCTR',['$scope', function($scope) {
 
     $scope.lightSelected = function () {
         _setBackground(LIGHT_BG);
-    }
+    };
+
+    $scope.autoMoveSelected = function () {
+        _setAutoSwitch();
+    };
+
+    $scope.manualMoveSelected = function () {
+        _setManualSwitch();
+    };
 
 }]);
 
@@ -140,11 +172,11 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
     });
     $scope.keyPressed = function(letter){
 
-        var imageList = util.getImageList(),
-            allWords =  util.getAllWords();
+        var allWords =  util.getAllWords();
 
         switch(letter) {
             case "space":
+                clearTimeout(autoSwitchSetTimeout);
                 $scope.success = false;
                 util.changeImage();
                 sounds.swipe();
@@ -261,6 +293,11 @@ mainApp.controller('completeTheWordCTR',['$scope','$http','sounds','util', funct
                         //fadeIn fadeOut the score
                         util.fadeInOut();
                         util.fadeInOutCompleteWord();
+                        if (autoSwitchStages) {
+                            autoSwitchSetTimeout = setTimeout(function () {
+                                $scope.keyPressed("space");
+                            }, 5000);
+                        }
                     }
                 }
 
@@ -340,6 +377,7 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
 
         if(letter === 'space')
         {
+            clearTimeout(autoSwitchSetTimeout);
             util.changeImage();
             util.clearImage();
             sounds.swipe();
@@ -367,6 +405,12 @@ mainApp.controller('firstLetterCTR',['$scope', 'sounds','util', function($scope,
                 util.fadeInOut();
                 //fadeIn fadeOut the letter
                 util.fadeInLetter("green");
+                if (autoSwitchStages) {
+                    autoSwitchSetTimeout = setTimeout(function () {
+                        $scope.keyPressed("space");
+                    }, 5000);
+                }
+
             }
             else {
                 util.fadeInLetter("red");

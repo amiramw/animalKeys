@@ -17,8 +17,8 @@
     position: relative;
     top: 58px;
     left: 20%;
-    width: 600px;
-    height: 300px;
+    width: 1000px;
+    height: 600px;
     background-color: antiquewhite;
 }
 
@@ -33,9 +33,14 @@
 
 .middlePart .tile img {
     border: solid fuchsia;
+}
+
+.middlePart .backgroundTiles .tile img {
     width: 150px;
     height: 150px;
 }
+
+
 
 .backgroundTiles {
     position: absolute;
@@ -44,7 +49,18 @@
     right: 10%;
 }
 
+.phases {
+    position: absolute;
+    top: 55%;
+    display: inline-block;
+    right: 10%;
+}
+
 .tile, .description {
     position: relative;
     display: inline-block;
+}
+
+.stateSelected {
+    background-color: fuchsia;
 }
