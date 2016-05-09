@@ -149,7 +149,9 @@ angular.module('mainApp').factory('sounds', ['$state', function ($state) {
             Zadik: new Audio('./voice/Zadik.mp3'),
             Zadik1: new Audio('./voice/Zadik1.mp3'),
             Zain: new Audio('./voice/Zain.mp3')
-        };
+        },
+        audioLetter = [],
+		lastPlayed = -1;
 
     return {
         success: function () {
@@ -162,7 +164,24 @@ angular.module('mainApp').factory('sounds', ['$state', function ($state) {
             swipe_snd.play();
         },
         letter: function (letter) {
-            letter_snd[letter].play();
+			console.log(letter);
+			var placeInList = ++lastPlayed;
+			function doChangeIfCan() {
+				function changeLetter() {
+					audioLetter[placeInList] = letter_snd[letter];
+					lastPlayed = placeInList;
+					letter_snd[letter].play();
+				}
+
+				if (placeInList === 0 || audioLetter[placeInList - 1] && audioLetter[placeInList - 1].ended) {
+					changeLetter();
+				} else {
+					setTimeout(function () {
+						doChangeIfCan();
+					}, 200);
+				}
+			}
+			doChangeIfCan();
         },
         word: function (word) {
             words_snd[word].play();
